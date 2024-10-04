@@ -45,3 +45,6 @@
 
 [Sprite] Characters
 ![Character](https://github.com/user-attachments/assets/bc62ba01-b069-436a-8abf-d7f78f5f47d8)
+
+[Text Box]
+![Text Box](https://github.com/user-attachments/assets/582fdd9a-7103-41bf-b3b7-3d6e2667f859)
