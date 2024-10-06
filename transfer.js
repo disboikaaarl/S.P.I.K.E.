@@ -11,16 +11,26 @@ const {
 const bs58 = require('bs58');
 
 // Replace with your Base58 private key (from Phantom export)
-const base58PrivateKey = "2pUCErCeJuo221DANq1U2AMszJXZ3JVTXnde2pWfz23zGSDydYjPiAsQCXbgvJ4jN3XLW6prgu6VC3kqMr3YemTe";
+const base58PrivateKey = "2d8wr3wSgeZLewct4FmQkdJ25oLqHJz3EiBtqsfBu1demL8LVE1j7Yg3EkZxYf1a5147cxVuFwEpvj22UbT1zzc4";
 
 // Convert Base58 private key to Uint8Array
 const senderSecretKey = bs58.decode(base58PrivateKey);
 
-// Replace with the recipient public key (wallet address)
-const receiverPublicKey = new PublicKey("9wJfr2VEj5KupwpRDjyyNaqvwPHp7ENgbfxxDixgvf7J");
+// Define recipient public keys for both players
+// For Dem Purposes
+const receiverPublicKeyPlayer1 = new PublicKey("CgfYtmjEUBwjoqx2s9wQAtfe2jtW5eDEpx62h1Tvm9gC");
+const receiverPublicKeyPlayer2 = new PublicKey("3wfQ8fNoaVkX73AVjZnuv6E6WQRjjet8joxukFDwmCcj");
 
 async function handleWin(winnerIndex) {
-  console.log(`Winner is Player ${winnerIndex + 1}. Executing transfer...`);
+  // Set the receiver public key based on the winner index
+  let receiverPublicKey;
+  if (winnerIndex == 0) {
+    receiverPublicKey = receiverPublicKeyPlayer1;
+  } else {
+    receiverPublicKey = receiverPublicKeyPlayer2;
+  }
+  
+  console.log(`Winner is Player ${winnerIndex + 1}. Executing transfer to the Victor...`);
 
   // Create a connection to Solana Devnet
   const connection = new Connection("https://api.devnet.solana.com", "confirmed");
@@ -28,8 +38,8 @@ async function handleWin(winnerIndex) {
   // Load the sender account from the converted secret key
   const senderKeypair = Keypair.fromSecretKey(senderSecretKey);
 
-  // Define the amount to send (e.g., 1 SOL)
-  const amount = 1 * LAMPORTS_PER_SOL;
+  // Define the amount to send (e.g., 3 SOL)
+  const amount = 3 * LAMPORTS_PER_SOL;
 
   // Create a transaction to transfer SOL
   const transaction = new Transaction().add(
