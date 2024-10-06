@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S.P.I.K.E - Battle</title>
     <style>
+        /* Your styles remain unchanged */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -14,12 +15,14 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #1a1a1a;
-            color: white;
+            background-image: url('/Web_Development/Images/Stage Moon.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         #game-container {
             background-color: #2b2b2b;
-            border: 2px solid #e63946;
+            border: 2px solid #dc10a2;
             padding: 30px;
             border-radius: 10px;
             width: 450px;
@@ -49,7 +52,7 @@
             height: 100%;
             background-color: #28a745;
             border-radius: 10px;
-            width: 100%; /* Default to full health */
+            width: 100%;
             transition: width 0.5s ease;
         }
         .health {
@@ -147,6 +150,12 @@
                 document.getElementById('result').textContent = "You Lose!";
             }
             disableAllButtons();
+
+            // Automatically reset game after 3 seconds
+            setTimeout(() => {
+                resetGame();
+                ws.send(JSON.stringify({ type: 'reset' })); // Notify server to reset
+            }, 3000);
         }
 
         if (data.type === 'reset') {
@@ -178,14 +187,38 @@
         return '#dc3545'; // Red for low health
     }
 
-    function updateButtons() {
-        const disable = playerIndex !== currentTurn;
-        document.querySelectorAll('.attack-btn').forEach(btn => btn.disabled = disable);
-    }
+    function resetGame() {
+    playerHealths[0] = maxHealth;
+    playerHealths[1] = maxHealth;
+    currentTurn = 0; // Ensure Player 1 starts after reset
+    updateHealth(playerHealths);
+    document.getElementById('result').textContent = "";
 
-    function disableAllButtons() {
-        document.querySelectorAll('.attack-btn').forEach(btn => btn.disabled = true);
-    }
+    // Enable all buttons, then update based on current turn
+    enableAllButtons();
+    updateButtons(); // Update buttons based on turn
+}
+
+function updateButtons() {
+    // Disable buttons for the player who is NOT in turn
+    const disable = playerIndex !== currentTurn;
+    
+    document.querySelectorAll('.attack-btn').forEach(btn => {
+        btn.disabled = disable;
+    });
+
+    // Log current player index and turn for debugging
+    console.log(`Player Index: ${playerIndex}, Current Turn: ${currentTurn}`);
+}
+
+function disableAllButtons() {
+    document.querySelectorAll('.attack-btn').forEach(btn => btn.disabled = true);
+}
+
+function enableAllButtons() {
+    document.querySelectorAll('.attack-btn').forEach(btn => btn.disabled = false);
+}
+
 </script>
 
 </body>
