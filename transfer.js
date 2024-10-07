@@ -17,7 +17,6 @@ const base58PrivateKey = "2d8wr3wSgeZLewct4FmQkdJ25oLqHJz3EiBtqsfBu1demL8LVE1j7Y
 const senderSecretKey = bs58.decode(base58PrivateKey);
 
 // Define recipient public keys for both players
-// For Dem Purposes
 const receiverPublicKeyPlayer1 = new PublicKey("CgfYtmjEUBwjoqx2s9wQAtfe2jtW5eDEpx62h1Tvm9gC");
 const receiverPublicKeyPlayer2 = new PublicKey("3wfQ8fNoaVkX73AVjZnuv6E6WQRjjet8joxukFDwmCcj");
 
@@ -39,7 +38,7 @@ async function handleWin(winnerIndex) {
   const senderKeypair = Keypair.fromSecretKey(senderSecretKey);
 
   // Define the amount to send (e.g., 3 SOL)
-  const amount = 3 * LAMPORTS_PER_SOL;
+  const amount = (.95*2) * LAMPORTS_PER_SOL;
 
   // Create a transaction to transfer SOL
   const transaction = new Transaction().add(
