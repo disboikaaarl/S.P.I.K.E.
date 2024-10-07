@@ -1,6 +1,11 @@
 #S.P.I.K.E Visuals
+[Logo] S.P.I.K.E.
+![Logo S P I K E](https://github.com/user-attachments/assets/060fff56-671b-46a4-b53d-64c1cb822cec)
+
+
 [Logo] Solana
 ![Logo  Solana](https://github.com/user-attachments/assets/57611f80-75ef-4e39-a040-0c7ea39951a6)
+
 [Background] Login
 ![Background  Login](https://github.com/user-attachments/assets/b229b8df-d686-4c47-8495-bb7e1da6e85e)
 
